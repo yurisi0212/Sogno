@@ -1,3 +1,43 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#top{
+    overflow-x: hidden;
+}
+
+.top-page{
+    width: 100vw;
+    height: 93vh;
+}
+
+.top-page-description{
+    width: 100vw;
+    height: 98vh;
+}
+
+#top-background {
+    width: 100vw;
+    height: 93vh;
+    background: #fff url("/images/top.jpg") no-repeat center;
+    background-size: cover;
+    position: relative;
+    z-index: 0;
+}
+
+#top-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    filter: blur(5px);
+    z-index: -1;
+}
+
+#top-title {
+    text-shadow: 0 0 10px #333;
+}
+

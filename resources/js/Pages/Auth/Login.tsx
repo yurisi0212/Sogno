@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import Button from "@/Components/Button";
+import Button from '@mui/material/Button';
 import Checkbox from "@/Components/Checkbox";
 import Guest from "@/Layouts/Guest";
-import Input from "@/Components/Input";
-import Label from "@/Components/Label";
 import ValidationErrors from "@/Components/ValidationErrors";
 import { Head, Link, useForm } from "@inertiajs/inertia-react";
+import {TextField} from "@mui/material";
+import {LoginRounded} from "@mui/icons-material";
 
 interface Props {
     status: string;
@@ -26,12 +26,7 @@ export default function Login({ status, canResetPassword }: Props) {
     }, []);
 
     const onHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setData(
-            event.target.name as "email" | "password" | "remember",
-            event.target.type === "checkbox"
-                ? event.target.checked
-                : event.target.value
-        );
+        setData(event.target.name as "email" | "password" | "remember", event.target.type === 'checkbox' ? event.target.checked + '' : event.target.value);
     };
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -43,7 +38,7 @@ export default function Login({ status, canResetPassword }: Props) {
     return (
         <Guest>
             <Head title="ログイン" />
-
+            <h1 className="text-center">ログイン</h1>
             {status && (
                 <div className="mb-4 font-medium text-sm text-green-600">
                     {status}
@@ -63,30 +58,11 @@ export default function Login({ status, canResetPassword }: Props) {
 
             <form onSubmit={submit}>
                 <div>
-                    <Label forInput="email" value="Email" />
-
-                    <Input
-                        type="text"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        isFocused={true}
-                        handleChange={onHandleChange}
-                    />
+                    <TextField label="Email" name="email" className="mt-1 block w-full" type="email" onChange={onHandleChange} autoComplete="username" variant="filled" />
                 </div>
 
                 <div className="mt-4">
-                    <Label forInput="password" value="Password" />
-
-                    <Input
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="current-password"
-                        handleChange={onHandleChange}
-                    />
+                    <TextField label="Password" name="password" className="mt-1 block w-full" type="password" onChange={onHandleChange} autoComplete="current-password" variant="filled" />
                 </div>
 
                 <div className="block mt-4">
@@ -103,7 +79,8 @@ export default function Login({ status, canResetPassword }: Props) {
                     </label>
                 </div>
 
-                <div className="flex items-center justify-end mt-4">
+                <div className="flex items-center justify-between mt-4">
+                    <div>
                     {canResetPassword && (
                         <Link
                             href={route("password.request")}
@@ -112,13 +89,13 @@ export default function Login({ status, canResetPassword }: Props) {
                             パスワードを忘れた方はこちら
                         </Link>
                     )}
-
-                    <Button
-                        className="ml-4 bg-gray-900"
-                        processing={processing}
-                    >
-                        ログイン
-                    </Button>
+                    </div>
+                    <div>
+                        <Button type="submit" variant="contained" className="ml-4 bg-gray-900"
+                                processing={processing.toString()} endIcon={<LoginRounded />}>
+                            ログイン
+                        </Button>
+                    </div>
                 </div>
             </form>
         </Guest>
