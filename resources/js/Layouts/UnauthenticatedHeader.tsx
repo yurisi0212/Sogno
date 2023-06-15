@@ -8,13 +8,7 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
-
-const pages = [
-    'Sognoとは',
-
-];
 
 export default function UnauthenticatedHeader() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -29,23 +23,27 @@ export default function UnauthenticatedHeader() {
 
     const pages_button = (
         <>
-            <Button
-                variant="outlined"
-                key="会員登録"
-                onClick={handleCloseNavMenu}
-                sx={{mx: 1, display: 'block'}}
-            >
-                <Link href={route('register')}>会員登録</Link>
+            <Link href={route('register')}>
+                <Button
+                    variant="outlined"
+                    key="会員登録"
+                    onClick={handleCloseNavMenu}
+                    sx={{mx: 1, display: 'block'}}
+                >
+                    会員登録
 
-            </Button>
-            <Button
-                variant="contained"
-                key="ログイン"
-                onClick={handleCloseNavMenu}
-                sx={{mx: 1, display: 'block'}}
-            >
-                <Link href={route('login')}>ログイン</Link>
-            </Button>
+                </Button>
+            </Link>
+            <Link href={route('login')}>
+                <Button
+                    variant="contained"
+                    key="ログイン"
+                    onClick={handleCloseNavMenu}
+                    sx={{mx: 1, display: 'block'}}
+                >
+                    ログイン
+                </Button>
+            </Link>
         </>
     );
 
@@ -100,21 +98,25 @@ export default function UnauthenticatedHeader() {
                                 display: {xs: 'block', md: 'none'},
                             }}
                         >
-                            <Button
-                                key="会員登録"
-                                onClick={handleCloseNavMenu}
-                                sx={{mx: 1, display: 'block'}}
-                            >
-                                <Link href={route('register')}>会員登録</Link>
+                            <Link href={route('register')}>
+                                <Button
+                                    key="会員登録"
+                                    onClick={handleCloseNavMenu}
+                                    sx={{mx: 1, display: 'block'}}
+                                >
+                                    会員登録
 
-                            </Button>,
-                            <Button
-                                key="ログイン"
-                                onClick={handleCloseNavMenu}
-                                sx={{mx: 1, display: 'block'}}
-                            >
-                                <Link href={route('login')}>ログイン</Link>
-                            </Button>
+                                </Button>
+                            </Link>
+                            <Link href={route('login')}>
+                                <Button
+                                    key="ログイン"
+                                    onClick={handleCloseNavMenu}
+                                    sx={{mx: 1, display: 'block'}}
+                                >
+                                    ログイン
+                                </Button>
+                            </Link>
                         </Menu>
                     </Box>
                     <Typography

@@ -21,8 +21,8 @@ interface Props {
 
 const pages = [
     'タイムライン',
-    '探す',
-    'あなたの夢'
+    '検索',
+    'あなたの夢',
 ];
 const settings = [
     <Link href={route('profile.edit')}>プロフィール</Link>,

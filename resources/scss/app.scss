@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-#top{
-    overflow-x: hidden;
-}
-
 .top-page{
     width: 100vw;
     height: 93vh;
@@ -17,8 +13,6 @@
 }
 
 #top-background {
-    width: 100vw;
-    height: 93vh;
     background: #fff url("/images/top.jpg") no-repeat center;
     background-size: cover;
     position: relative;
