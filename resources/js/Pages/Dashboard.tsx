@@ -11,7 +11,7 @@ export default function Dashboard(props: any) {
                     Dashboard
                 </h2>
             }
-        >
+         errors={props.errors} flash={props.flash}>
             <Head title="Dashboard" />
 
             <div className="py-12">

@@ -27,12 +27,15 @@
         "@emotion/react": "^11.11.1",
         "@emotion/styled": "^11.11.0",
         "@heroicons/react": "^2.0.18",
+        "@hookform/resolvers": "^3.2.0",
         "@inertiajs/inertia": "^0.11.1",
         "@inertiajs/inertia-react": "^0.8.1",
         "@inertiajs/progress": "^0.2.7",
         "@mui/icons-material": "^5.11.16",
         "@mui/material": "^5.13.5",
         "@tailwindcss/typography": "^0.5.9",
-        "sass": "^1.62.1"
+        "react-hook-form": "^7.45.4",
+        "sass": "^1.62.1",
+        "yup": "^1.2.0"
     }
 }

@@ -4,32 +4,41 @@ import {Inertia} from '@inertiajs/inertia'
 import Authenticated from "@/Layouts/Authenticated";
 import {Card, CardContent, TextField, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
+import * as yup from 'yup'
+import {yupResolver} from "@hookform/resolvers/yup";
+import { SubmitHandler, useForm } from 'react-hook-form'
+
+interface FormInput {
+    name: string;
+    introduction: string;
+}
+
+const schema = yup.object({
+    name: yup
+        .string()
+        .required('名前は必須です')
+        .min(3, '名前は３文字以上入力してください')
+        .max(15, '名前は15文字以下で入力してください'),
+    introduction: yup.string().max(255, '自己紹介は255文字以下で入力してください'),
+});
 
 
 export default function Edit(props: any) {
-    const [values, setValues] = useState({
-        name: props.user.name,
-        introduction: props.user.profile.introduction,
-        _token: props.csrf_token,
-        _method: "patch"
-    })
 
-    function handleChange(e: ChangeEvent<HTMLInputElement>) {
-        const key = e.target.id;
-        const value = e.target.value
-        setValues(values => ({
-            ...values,
-            [key]: value,
-        }))
-    }
-
-    function handleSubmit(e: any) {
-        e.preventDefault()
+    const onSubmit: SubmitHandler<FormInput> = (data: any) => {
         Inertia.patch(route('profile.update', {
             "id": props.user.id
-        }), values)
+        }), data)
     }
 
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<FormInput>({
+        // @ts-ignore
+        resolver: yupResolver(schema),
+    })
     return (
         <div>
             <div>
@@ -41,6 +50,7 @@ export default function Edit(props: any) {
                         </h2>
                     }
                     flash={props.flash}
+                    errors={props.errors}
                 >
                     <Head title="Dashboard"/>
                 </Authenticated>
@@ -51,14 +61,17 @@ export default function Edit(props: any) {
                         <Typography variant="h5" color="text.secondary" gutterBottom>
                             基本情報
                         </Typography>
-                        <form onSubmit={handleSubmit}>
+                        <form>
                             <div className="text-left">
                                 <div className="my-5">
                                     <TextField id="name" label="名前" variant="outlined"
+                                               required
                                                style={{maxWidth: '400px', width: '100%'}}
-                                               value={values.name}
-                                               onChange={handleChange}
+                                               {...register('name')}
+                                               defaultValue={props.user.name}
                                                name="name"
+                                               error={'name' in errors}
+                                               helperText={errors.name?.message}
                                     />
                                 </div>
                                 <div className="my-5">
@@ -67,15 +80,18 @@ export default function Edit(props: any) {
                                         label="自己紹介" variant="outlined"
                                         multiline
                                         rows={4}
-                                        value={values.introduction}
-                                        onChange={handleChange}
+                                        {...register('introduction')}
                                         style={{'width': '100%'}}
                                         name="introduction"
+                                        defaultValue={props.user.profile.introduction}
                                         inputProps={{maxLength: 2000}}
+                                        error={'introduction' in errors}
+                                        helperText={errors.introduction?.message}
                                     />
                                 </div>
                             </div>
-                            <Button type="submit" variant="contained">保存</Button>
+                            <input type="hidden" name="csrf_token" value={props.csrf_token}/>
+                            <Button onClick={handleSubmit(onSubmit)} variant="contained">保存</Button>
                         </form>
                     </CardContent>
                 </Card>

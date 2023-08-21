@@ -19,6 +19,7 @@ interface Props {
     header: React.ReactNode;
     children: React.ReactNode;
     flash: any;
+    errors: any;
 }
 
 const pages = [
@@ -31,7 +32,7 @@ const settings = [
     <Link href={route('logout')} method="post" as="button">ログアウト</Link>
 ];
 
-export default function Authenticated({auth, header, children, flash}: Props) {
+export default function Authenticated({auth, header, children, flash, errors}: Props) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [open, setOpen] = React.useState({
@@ -42,7 +43,7 @@ export default function Authenticated({auth, header, children, flash}: Props) {
     });
 
     useEffect(() => {
-        if(flash !== undefined){
+        if (flash !== undefined) {
             setOpen({
                 'error': flash.error !== null,
                 'warning': flash.warning !== null,
@@ -193,26 +194,39 @@ export default function Authenticated({auth, header, children, flash}: Props) {
                     </Toolbar>
                 </Container>
             </AppBar>
-
+            {errors !== undefined && Object.values(errors).length > 0 ?
+                <div className="w-full bg-red-500 text-center text-white">
+                    <ul>
+                        {Object.values(errors).map((e, i) => (
+                                <li key={i}>{e}</li>
+                            )
+                        )}
+                    </ul>
+                </div>
+                : ''}
             <Snackbar open={open.success} onClose={() => handleClose("success")} autoHideDuration={6000}
                       anchorOrigin={{vertical: "top", horizontal: "center"}}>
                 <Alert severity="success"
-                       onClose={() => handleClose("success")} sx={{ width: '100%' }}>{flash !== undefined && flash.success !== null ? flash.success : ''}</Alert>
+                       onClose={() => handleClose("success")}
+                       sx={{width: '100%'}}>{flash !== undefined && flash.success !== null ? flash.success : ''}</Alert>
             </Snackbar>
-            <Snackbar  open={open.warning} onClose={() => handleClose("warning")} autoHideDuration={6000}
+            <Snackbar open={open.warning} onClose={() => handleClose("warning")} autoHideDuration={6000}
                       anchorOrigin={{vertical: "top", horizontal: "center"}}>
                 <Alert severity="warning"
-                       onClose={() => handleClose("warning")} sx={{ width: '100%' }}>{flash !== undefined && flash.warning !== null ? flash.warning : ''}</Alert>
+                       onClose={() => handleClose("warning")}
+                       sx={{width: '100%'}}>{flash !== undefined && flash.warning !== null ? flash.warning : ''}</Alert>
             </Snackbar>
             <Snackbar open={open.info} onClose={() => handleClose("info")} autoHideDuration={6000}
                       anchorOrigin={{vertical: "top", horizontal: "center"}}>
                 <Alert severity="info"
-                       onClose={() => handleClose("info")} sx={{ width: '100%' }}>{flash !== undefined && flash.info !== null ? flash.info : ''}</Alert>
+                       onClose={() => handleClose("info")}
+                       sx={{width: '100%'}}>{flash !== undefined && flash.info !== null ? flash.info : ''}</Alert>
             </Snackbar>
             <Snackbar open={open.error} onClose={() => handleClose("error")} autoHideDuration={6000}
                       anchorOrigin={{vertical: "top", horizontal: "center"}}>
                 <Alert severity="error"
-                       onClose={() => handleClose("error")} sx={{ width: '100%' }}>{flash !== undefined && flash.error !== null ? flash.error : ''}</Alert>
+                       onClose={() => handleClose("error")}
+                       sx={{width: '100%'}}>{flash !== undefined && flash.error !== null ? flash.error : ''}</Alert>
             </Snackbar>
         </>
     );
