@@ -23,13 +23,8 @@ interface Props {
 }
 
 const pages = [
-    'タイムライン',
     '検索',
     'あなたの夢',
-];
-const settings = [
-    <Link href={route('profile.edit')}>プロフィール</Link>,
-    <Link href={route('logout')} method="post" as="button">ログアウト</Link>
 ];
 
 export default function Authenticated({auth, header, children, flash, errors}: Props) {
@@ -125,8 +120,8 @@ export default function Authenticated({auth, header, children, flash, errors}: P
                                     display: {xs: 'block', md: 'none'},
                                 }}
                             >
-                                {pages.map((page) => (
-                                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                                {pages.map((page, i) => (
+                                    <MenuItem key={i} onClick={handleCloseNavMenu}>
                                         <Typography textAlign="center">{page}</Typography>
                                     </MenuItem>
                                 ))}
@@ -151,9 +146,17 @@ export default function Authenticated({auth, header, children, flash, errors}: P
                             </Link>
                         </Typography>
                         <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-                            {pages.map((page) => (
+                            <Link href={route('timeline')}>
                                 <Button
-                                    key={page}
+                                    key={0}
+                                    onClick={handleCloseNavMenu}
+                                    sx={{my: 2, display: 'block'}}>
+                                    タイムライン
+                                </Button>
+                            </Link>
+                            {pages.map((page, i) => (
+                                <Button
+                                    key={i}
                                     onClick={handleCloseNavMenu}
                                     sx={{my: 2, display: 'block'}}
                                 >
@@ -184,11 +187,16 @@ export default function Authenticated({auth, header, children, flash, errors}: P
                                 open={Boolean(anchorElUser)}
                                 onClose={handleCloseUserMenu}
                             >
-                                {settings.map((setting, index) => (
-                                    <MenuItem key={index} onClick={handleCloseUserMenu}>
-                                        <Typography textAlign="center">{setting}</Typography>
+                                    <Link href={route('profile.edit')} className="w-full">
+                                        <MenuItem key={0} onClick={handleCloseUserMenu}>
+                                            <Typography textAlign="center">プロフィール</Typography>
+                                        </MenuItem>
+                                    </Link>
+                                <Link href={route('logout')} method="post" as="button" className="w-full">
+                                    <MenuItem key={1} onClick={handleCloseUserMenu}>
+                                        <Typography textAlign="center">ログアウト</Typography>
                                     </MenuItem>
-                                ))}
+                                </Link>
                             </Menu>
                         </Box>
                     </Toolbar>

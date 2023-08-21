@@ -20,11 +20,13 @@ export default function Timeline(props: any) {
 
             </Authenticated>
 
-            <div className="fixed container mx-auto w-full"  style={{"height": "85vh"}}>
-                <div className="absolute right-5 bottom-5">
-                    <Fab color="primary" aria-label="add">
-                        <AddIcon/>
-                    </Fab>
+            <div className="fixed w-full">
+                <div className="mx-auto w-full"  style={{"height": "85vh"}}>
+                    <div className="absolute" style={{"bottom": "40px", "right": "40px"}}>
+                        <Fab color="primary" aria-label="add">
+                            <AddIcon/>
+                        </Fab>
+                    </div>
                 </div>
             </div>
 
