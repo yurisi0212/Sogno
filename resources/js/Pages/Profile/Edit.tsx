@@ -40,6 +40,7 @@ export default function Edit(props: any) {
                             Dashboard
                         </h2>
                     }
+                    flash={props.flash}
                 >
                     <Head title="Dashboard"/>
                 </Authenticated>

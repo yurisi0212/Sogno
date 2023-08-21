@@ -37,7 +37,7 @@ class ProfileController extends Controller {
         $request->user()->save();
         $request->user()->profile->save();
 
-        return Redirect::route('profile.edit');
+        return Redirect::route('profile.edit')->with('message_success', 'プロフィールを変更しました。');
     }
 
     /**
