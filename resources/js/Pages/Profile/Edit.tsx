@@ -1,4 +1,3 @@
-import React, {ChangeEvent, useState} from "react";
 import {Head} from "@inertiajs/inertia-react";
 import {Inertia} from '@inertiajs/inertia'
 import Authenticated from "@/Layouts/Authenticated";
@@ -6,7 +5,7 @@ import {Card, CardContent, TextField, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 import * as yup from 'yup'
 import {yupResolver} from "@hookform/resolvers/yup";
-import { SubmitHandler, useForm } from 'react-hook-form'
+import {SubmitHandler, useForm} from 'react-hook-form'
 
 interface FormInput {
     name: string;
@@ -26,7 +25,7 @@ const schema = yup.object({
 export default function Edit(props: any) {
 
     const onSubmit: SubmitHandler<FormInput> = (data: any) => {
-        Inertia.patch(route('profile.update', {
+        Inertia.patch(route('auth.profile.update', {
             "id": props.user.id
         }), data)
     }
@@ -34,27 +33,24 @@ export default function Edit(props: any) {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: {errors},
     } = useForm<FormInput>({
         // @ts-ignore
         resolver: yupResolver(schema),
     })
     return (
-        <div>
-            <div>
-                <Authenticated
-                    auth={props.auth}
-                    header={
-                        <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                            Dashboard
-                        </h2>
-                    }
-                    flash={props.flash}
-                    errors={props.errors}
-                >
-                    <Head title="Dashboard"/>
-                </Authenticated>
-            </div>
+        <Authenticated
+            auth={props.auth}
+            header={
+                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                    Dashboard
+                </h2>
+            }
+            flash={props.flash}
+            errors={props.errors}
+        >
+            <Head title="プロフィール - 編集"/>
+
             <div className="container mx-auto mt-10 text-center">
                 <Card>
                     <CardContent>
@@ -96,6 +92,6 @@ export default function Edit(props: any) {
                     </CardContent>
                 </Card>
             </div>
-        </div>
+        </Authenticated>
     )
 };

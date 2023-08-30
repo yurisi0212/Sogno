@@ -3,15 +3,15 @@ import React from 'react';
 export default function Footer() {
     return (
         <>
-            <footer className="mt-5 bg-white text-center">
+            <footer className="mt-5 bg-gray-100 text-center py-6">
                 <div className="container mx-auto">
                     <h1 className="text-3xl">Sogno</h1>
                     <div className="flex justify-center pt-3">
                         <div className="mr-10 block">
                             <h1 className="text-2xl">ガイド</h1>
                             <div>
-                                <div><a href="#">会員登録</a></div>
-                                <div><a href="#">ログイン</a></div>
+                                <div><a href={route("register")}>会員登録</a></div>
+                                <div><a href={route("login")}>ログイン</a></div>
                             </div>
                         </div>
                         <div>

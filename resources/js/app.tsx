@@ -2,6 +2,8 @@ import "./bootstrap";
 import "../scss/app.scss";
 
 import React from "react";
+
+// @ts-ignore
 import { createRoot } from "react-dom/client";
 import { createInertiaApp } from "@inertiajs/inertia-react";
 import { InertiaProgress } from "@inertiajs/progress";

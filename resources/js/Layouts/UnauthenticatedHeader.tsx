@@ -13,7 +13,7 @@ import Button from "@mui/material/Button";
 export default function UnauthenticatedHeader() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
-    const handleOpenNavMenu = (event) => {
+    const handleOpenNavMenu = (event :any) => {
         setAnchorElNav(event.currentTarget);
     };
 
@@ -47,7 +47,6 @@ export default function UnauthenticatedHeader() {
         </>
     );
 
-
     return (
         <AppBar position="static" color="inherit">
             <Container maxWidth="xl">
@@ -58,9 +57,7 @@ export default function UnauthenticatedHeader() {
                         sx={{
                             mr: 2,
                             display: {xs: 'none', md: 'flex'},
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
+                            letterSpacing: '.2rem',
                             textDecoration: 'none',
                         }}
                     >
@@ -126,8 +123,6 @@ export default function UnauthenticatedHeader() {
                             mr: 2,
                             display: {xs: 'flex', md: 'none'},
                             flexGrow: 1,
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none',

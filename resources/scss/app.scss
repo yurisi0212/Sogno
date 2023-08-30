@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    font-weight:700;
+}
+
+input:focus,textarea:focus{
+    box-shadow: none !important;
+}
+
+textarea{
+    resize:none;
+}
+
 .top-page{
     width: 100vw;
     height: 93vh;

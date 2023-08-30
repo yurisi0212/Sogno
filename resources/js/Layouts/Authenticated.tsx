@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {Link} from "@inertiajs/inertia-react";
 import {Alert, Snackbar} from "@mui/material";
+import Footer from "@/Layouts/Footer";
 
 interface Props {
     auth: any;
@@ -81,13 +82,11 @@ export default function Authenticated({auth, header, children, flash, errors}: P
                             sx={{
                                 mr: 2,
                                 display: {xs: 'none', md: 'flex'},
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                letterSpacing: '.3rem',
+                                letterSpacing: '.2rem',
                                 textDecoration: 'none',
                             }}
                         >
-                            <Link href="/">
+                            <Link href={route('auth.home')}>
                                 Sogno
                             </Link>
                         </Typography>
@@ -120,6 +119,13 @@ export default function Authenticated({auth, header, children, flash, errors}: P
                                     display: {xs: 'block', md: 'none'},
                                 }}
                             >
+                                <Link href={route('auth.home')}>
+                                    <MenuItem
+                                        key={0}
+                                        onClick={handleCloseNavMenu}>
+                                        <Typography textAlign="center">タイムライン</Typography>
+                                    </MenuItem>
+                                </Link>
                                 {pages.map((page, i) => (
                                     <MenuItem key={i} onClick={handleCloseNavMenu}>
                                         <Typography textAlign="center">{page}</Typography>
@@ -134,19 +140,17 @@ export default function Authenticated({auth, header, children, flash, errors}: P
                                 mr: 2,
                                 display: {xs: 'flex', md: 'none'},
                                 flexGrow: 1,
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                letterSpacing: '.3rem',
+                                letterSpacing: '.2rem',
                                 color: 'inherit',
                                 textDecoration: 'none',
                             }}
                         >
-                            <Link href="/">
+                            <Link href={route('auth.home')}>
                                 Sogno
                             </Link>
                         </Typography>
                         <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-                            <Link href={route('timeline')}>
+                            <Link href={route('auth.home')}>
                                 <Button
                                     key={0}
                                     onClick={handleCloseNavMenu}
@@ -187,11 +191,11 @@ export default function Authenticated({auth, header, children, flash, errors}: P
                                 open={Boolean(anchorElUser)}
                                 onClose={handleCloseUserMenu}
                             >
-                                    <Link href={route('profile.edit')} className="w-full">
-                                        <MenuItem key={0} onClick={handleCloseUserMenu}>
-                                            <Typography textAlign="center">プロフィール</Typography>
-                                        </MenuItem>
-                                    </Link>
+                                <Link href={route('auth.profile.edit')} className="w-full">
+                                    <MenuItem key={0} onClick={handleCloseUserMenu}>
+                                        <Typography textAlign="center">プロフィール</Typography>
+                                    </MenuItem>
+                                </Link>
                                 <Link href={route('logout')} method="post" as="button" className="w-full">
                                     <MenuItem key={1} onClick={handleCloseUserMenu}>
                                         <Typography textAlign="center">ログアウト</Typography>
@@ -202,6 +206,10 @@ export default function Authenticated({auth, header, children, flash, errors}: P
                     </Toolbar>
                 </Container>
             </AppBar>
+            <div style={{minHeight: "90vh"}}>
+                {children}
+            </div>
+            <Footer/>
             {errors !== undefined && Object.values(errors).length > 0 ?
                 <div className="w-full bg-red-500 text-center text-white">
                     <ul>
