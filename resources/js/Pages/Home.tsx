@@ -132,7 +132,7 @@ export default function Home(props: any) {
                 {(() => {
                     if (!load_content) {
                         return (
-                            <div className="my-12 text-center">
+                            <div className="mt-12 text-center">
                                 <CircularProgress color="secondary"/>
                             </div>
                         );
@@ -140,7 +140,7 @@ export default function Home(props: any) {
 
                     if (exists_content) {
                         return (
-                            <div className="py-12">
+                            <div className="pt-12">
                                 {view_contents.map((value: DreamData, index) => {
                                     return (
                                         <Dream key={index} title={value.title} content={value.content}/>
@@ -150,7 +150,7 @@ export default function Home(props: any) {
                         );
                     }
                     return (
-                        <div className="py-12">
+                        <div className="pt-12">
                             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                                 <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                                     <div className="text-center">

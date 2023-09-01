@@ -48,6 +48,7 @@ export default function Edit(props: any) {
             }
             flash={props.flash}
             errors={props.errors}
+            default_tab={3}
         >
             <Head title="プロフィール - 編集"/>
 

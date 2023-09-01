@@ -14,7 +14,7 @@ export default function Dream({title, content}: Props) {
                         <div className="text-center">
                             <h3 className="mb-3">{title}</h3>
                             <Divider/>
-                            <p className="p-8">{content}</p>
+                            <p className="p-8 whitespace-pre">{content}</p>
                         </div>
                     </div>
                 </div>
