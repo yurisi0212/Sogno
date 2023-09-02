@@ -47,12 +47,11 @@ export default function Edit(props: any) {
                 </h2>
             }
             flash={props.flash}
-            errors={props.errors}
             default_tab={3}
         >
             <Head title="プロフィール - 編集"/>
 
-            <div className="container mx-auto mt-10 text-center">
+            <div className="mx-6 mt-10 text-center">
                 <Card>
                     <CardContent>
                         <Typography variant="h5" color="text.secondary" gutterBottom>
