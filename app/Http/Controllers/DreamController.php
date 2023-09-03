@@ -16,8 +16,7 @@ class DreamController extends Controller {
         $dream->fill($validated);
         $dream->save();
 
-
-        return back()->with('message_success', '新しい夢を投稿しました');
+        return back()->with('message_success' , '新しい夢を投稿しました');
     }
 
     public function ajaxGetDreams(Request $request): array {
@@ -27,7 +26,7 @@ class DreamController extends Controller {
             ->limit(10)
             ->offset($offset)
             ->orderByDesc('updated_at')
-            ->select("title", "content", "updated_at")
+            ->select("title", "content", "updated_at", 'id')
             ->get();
 
         return $dreams->toArray();

@@ -34,6 +34,7 @@
         "@mui/icons-material": "^5.11.16",
         "@mui/material": "^5.13.5",
         "@tailwindcss/typography": "^0.5.9",
+        "@types/react-infinite-scroller": "^1.2.3",
         "react-hook-form": "^7.45.4",
         "sass": "^1.62.1",
         "yup": "^1.2.0"

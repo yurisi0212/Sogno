@@ -41,11 +41,7 @@ export default function Edit(props: any) {
     return (
         <Authenticated
             auth={props.auth}
-            header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Dashboard
-                </h2>
-            }
+            header="profile"
             flash={props.flash}
             default_tab={3}
         >
