@@ -17,7 +17,7 @@ export default function Show(props: any) {
         <>
             <Authenticated auth={props.auth} header="profile" flash={props.flash}>
                 <Box sx={{display: {xs: "none", sm: "block"}}}>
-                    <div className="mx-6 my-10 text-center">
+                    <div className="mx-6 mt-4 mb-10 text-center">
                         <Card sx={{minHeight: "90vh", display: {xs: "none", sm: "block"}}}>
                             <div className="mt-8">
                                 <div className="flex justify-between px-4">
@@ -33,9 +33,19 @@ export default function Show(props: any) {
                                             </div>
                                         </div>
                                         <div className="mt-5">
-                                            <Button variant="contained" color="info" startIcon={<FavoriteBorderIcon/>}>
-                                                フォロー
-                                            </Button>
+                                            {(() => {
+                                                if (props.auth.user.id !== props.user.id) {
+                                                    return (
+                                                        <Button variant="contained" color="info"
+                                                                startIcon={<FavoriteBorderIcon/>}>
+                                                            フォロー
+                                                        </Button>
+                                                    );
+                                                } else {
+                                                    return (<div style={{marginTop: "57px"}}></div>);
+                                                }
+                                            })()}
+
                                         </div>
                                     </div>
 
@@ -84,6 +94,7 @@ export default function Show(props: any) {
                         </Card>
                     </div>
                 </Box>
+
                 <Box sx={{display: {xs: "block", sm: "none"}}}>
                     <div className="mx-6 text-center mt-2">
                         <Card sx={{minHeight: "85vh"}}>
@@ -95,9 +106,23 @@ export default function Show(props: any) {
                                 <h2 className="mt-1 text-gray-600"
                                     style={{fontSize: 18}}>{props.user.name}</h2>
                                 <div className="mt-4">
-                                    <Button variant="contained" color="info" startIcon={<FavoriteBorderIcon/>}>
-                                        フォロー
-                                    </Button>
+                                    {(() => {
+                                        if (props.auth.user.id !== props.user.id) {
+                                            return (
+                                                <Button variant="contained" color="info"
+                                                        startIcon={<FavoriteBorderIcon/>}>
+                                                    フォロー
+                                                </Button>
+                                            );
+                                        }else {
+                                            return(
+                                                <div style={{marginTop: "52px"}}></div>
+                                            )
+                                        }
+                                    })()}
+                                </div>
+                                <div>
+                                    aa
                                 </div>
                             </div>
                         </Card>
