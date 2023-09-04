@@ -190,7 +190,7 @@ export default function Authenticated({auth, header, children, flash, handleModa
                         <div id="navigation" className="mt-6">
                             <div className="my-5">
                                 <Link href={route('auth.home')}>
-                                    <div className={header == "home" ? "flex text-gray-600" : "flex"}>
+                                    <div className={header == "home" ? "flex text-pink-400" : "flex"}>
                                         <div>
                                             <HomeIcon/>
                                         </div>
@@ -202,7 +202,7 @@ export default function Authenticated({auth, header, children, flash, handleModa
                             </div>
                             <div className="my-5">
                                 <Link href={route('auth.search.index')}>
-                                    <div className={header == "search" ? "flex text-gray-600" : "flex"}>
+                                    <div className={header == "search" ? "flex text-pink-400" : "flex"}>
                                         <div>
                                             <SearchIcon/>
                                         </div>
@@ -214,7 +214,7 @@ export default function Authenticated({auth, header, children, flash, handleModa
                             </div>
                             <div className="my-5">
                                 <Link href={route('auth.notification.index')}>
-                                    <div className={header == "notification" ? "flex text-gray-600" : "flex"}>
+                                    <div className={header == "notification" ? "flex text-pink-400" : "flex"}>
                                         <div>
                                             <MarkChatUnreadIcon/>
                                         </div>
@@ -238,7 +238,7 @@ export default function Authenticated({auth, header, children, flash, handleModa
                             </div>
                             <div className="my-5">
                                 <Link href={route('auth.profile.show', {profile: auth.user.id})}>
-                                    <div className={header == "profile" ? "flex text-gray-600" : "flex"}>
+                                    <div className={header == "profile" ? "flex text-pink-400" : "flex"}>
                                         <div>
                                             <PersonIcon/>
                                         </div>
@@ -335,7 +335,7 @@ export default function Authenticated({auth, header, children, flash, handleModa
                             <div id="navigation" className="mt-6 px-6">
                                 <div className="my-5">
                                     <Link href={route('auth.home')}>
-                                        <div className={header == "home" ? "flex text-gray-600" : "flex"}>
+                                        <div className={header == "home" ? "flex text-pink-400" : "flex"}>
                                             <div>
                                                 <HomeIcon/>
                                             </div>
@@ -344,7 +344,7 @@ export default function Authenticated({auth, header, children, flash, handleModa
                                 </div>
                                 <div className="my-5">
                                     <Link href={route('auth.search.index')}>
-                                        <div className={header == "search" ? "flex text-gray-600" : "flex"}>
+                                        <div className={header == "search" ? "flex text-pink-400" : "flex"}>
                                             <div>
                                                 <SearchIcon/>
                                             </div>
@@ -353,7 +353,7 @@ export default function Authenticated({auth, header, children, flash, handleModa
                                 </div>
                                 <div className="my-5">
                                     <Link href={route('auth.notification.index')}>
-                                        <div className={header == "notification" ? "flex text-gray-600" : "flex"}>
+                                        <div className={header == "notification" ? "flex text-pink-400" : "flex"}>
                                             <div>
                                                 <MarkChatUnreadIcon/>
                                             </div>
@@ -371,7 +371,7 @@ export default function Authenticated({auth, header, children, flash, handleModa
                                 </div>
                                 <div className="my-5">
                                     <Link href={route('auth.profile.show', {profile: auth.user.id})}>
-                                        <div className={header == "profile" ? "flex text-gray-600" : "flex"}>
+                                        <div className={header == "profile" ? "flex text-pink-400" : "flex"}>
                                             <div>
                                                 <PersonIcon/>
                                             </div>
@@ -470,7 +470,7 @@ export default function Authenticated({auth, header, children, flash, handleModa
                 <div className="w-full fixed bottom-0" style={{backgroundColor: "white"}}>
                     <Box sx={{width: '100%'}}>
                         <Tabs value={tab} onChange={handleChangeTab} aria-label="icon tabs example"
-                              sx={{width: '100%'}}>
+                              sx={{width: '100%'}} indicatorColor="secondary" textColor="secondary">
                             <Tab sx={{minWidth: '25%', width: '25%'}} icon={<HomeIcon/>} aria-label="home"
                                  onClick={handleClickTab}
                                  href={route('auth.home')} component='a'/>
