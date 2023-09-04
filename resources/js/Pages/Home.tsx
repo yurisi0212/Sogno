@@ -188,7 +188,7 @@ export default function Home(props: any) {
 
                         if (view_contents.length === 0) {
                             return (
-                                <div className="pt-12">
+                                <div className="pt-5">
                                     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                                             <div className="text-center">
@@ -206,7 +206,7 @@ export default function Home(props: any) {
                                 hasMore={hasMore}
                                 loader={loader}
                             >
-                                <div className="pt-6">
+                                <div>
                                     {item}
                                 </div>
                             </InfiniteScroll>

@@ -85,7 +85,7 @@ export default function Show(props: any) {
                     </div>
                 </Box>
                 <Box sx={{display: {xs: "block", sm: "none"}}}>
-                    <div className="mx-6 text-center mt-8">
+                    <div className="mx-6 text-center mt-2">
                         <Card sx={{minHeight: "85vh"}}>
                             <div className="flex justify-center mt-4">
                                 <Avatar alt={props.user.name} src="/static/images/avatar/2.jpg"
@@ -105,6 +105,5 @@ export default function Show(props: any) {
                 </Box>
             </Authenticated>
         </>
-    )
-        ;
+    );
 }

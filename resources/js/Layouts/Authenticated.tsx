@@ -25,7 +25,6 @@ interface Props {
     children: React.ReactNode;
     flash: any;
     handleModalChange?: any;
-    default_tab?: number;
 }
 
 function samePageLinkNavigation(
@@ -44,7 +43,7 @@ function samePageLinkNavigation(
     return true;
 }
 
-export default function Authenticated({auth, header, children, flash, default_tab = 0, handleModalChange}: Props) {
+export default function Authenticated({auth, header, children, flash, handleModalChange}: Props) {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [open, setOpen] = React.useState({
         'error': false,
@@ -64,6 +63,21 @@ export default function Authenticated({auth, header, children, flash, default_ta
         }
     }, [flash]);
 
+    const getHeaderId = () =>{
+        switch (header){
+            case "home":
+                return 0;
+            case "search":
+                return 1;
+            case "notification":
+                return 2;
+            case "profile":
+                return 3;
+            default:
+                return -1;
+        }
+    }
+
     const handleClose = (type: string) => {
         setOpen(open => ({
             ...open,
@@ -79,7 +93,7 @@ export default function Authenticated({auth, header, children, flash, default_ta
         setAnchorElUser(null);
     };
 
-    const [tab, setTab] = React.useState(default_tab);
+    const [tab, setTab] = React.useState(getHeaderId);
 
     const handleChangeTab = (event: React.SyntheticEvent, newValue: number) => {
         if (
@@ -187,8 +201,8 @@ export default function Authenticated({auth, header, children, flash, default_ta
                                 </Link>
                             </div>
                             <div className="my-5">
-                                <Link href=''>
-                                    <div className='flex'>
+                                <Link href={route('auth.search.index')}>
+                                    <div className={header == "search" ? "flex text-gray-600" : "flex"}>
                                         <div>
                                             <SearchIcon/>
                                         </div>
@@ -199,8 +213,8 @@ export default function Authenticated({auth, header, children, flash, default_ta
                                 </Link>
                             </div>
                             <div className="my-5">
-                                <Link href=''>
-                                    <div className='flex'>
+                                <Link href={route('auth.notification.index')}>
+                                    <div className={header == "notification" ? "flex text-gray-600" : "flex"}>
                                         <div>
                                             <MarkChatUnreadIcon/>
                                         </div>
@@ -223,7 +237,7 @@ export default function Authenticated({auth, header, children, flash, default_ta
                                 </Link>
                             </div>
                             <div className="my-5">
-                                <Link href={route('auth.profile.show', {profile : auth.user.id})}>
+                                <Link href={route('auth.profile.show', {profile: auth.user.id})}>
                                     <div className={header == "profile" ? "flex text-gray-600" : "flex"}>
                                         <div>
                                             <PersonIcon/>
@@ -282,7 +296,7 @@ export default function Authenticated({auth, header, children, flash, default_ta
                                 onClose={handleCloseUserMenu}
                             >
                                 <div>
-                                    <Link href={route('auth.profile.show', {profile : auth.user.id})} className="w-full">
+                                    <Link href={route('auth.profile.show', {profile: auth.user.id})} className="w-full">
                                         <MenuItem key={0} onClick={handleCloseUserMenu}>
                                             <Typography textAlign="center"><PersonIcon/>プロフィール</Typography>
                                         </MenuItem>
@@ -301,7 +315,7 @@ export default function Authenticated({auth, header, children, flash, default_ta
                             </Menu>
                         </Box>
                     </header>
-                    <div className="bg-gray-100" style={{
+                    <div className="bg-gray-100 pt-4" style={{
                         width: `calc(100vw - 250px)`,
                         minHeight: "100vh",
                         marginLeft: "250px",
@@ -329,8 +343,8 @@ export default function Authenticated({auth, header, children, flash, default_ta
                                     </Link>
                                 </div>
                                 <div className="my-5">
-                                    <Link href=''>
-                                        <div className='flex'>
+                                    <Link href={route('auth.search.index')}>
+                                        <div className={header == "search" ? "flex text-gray-600" : "flex"}>
                                             <div>
                                                 <SearchIcon/>
                                             </div>
@@ -338,8 +352,8 @@ export default function Authenticated({auth, header, children, flash, default_ta
                                     </Link>
                                 </div>
                                 <div className="my-5">
-                                    <Link href=''>
-                                        <div className='flex'>
+                                    <Link href={route('auth.notification.index')}>
+                                        <div className={header == "notification" ? "flex text-gray-600" : "flex"}>
                                             <div>
                                                 <MarkChatUnreadIcon/>
                                             </div>
@@ -356,7 +370,7 @@ export default function Authenticated({auth, header, children, flash, default_ta
                                     </Link>
                                 </div>
                                 <div className="my-5">
-                                    <Link href={route('auth.profile.show', {profile : auth.user.id})}>
+                                    <Link href={route('auth.profile.show', {profile: auth.user.id})}>
                                         <div className={header == "profile" ? "flex text-gray-600" : "flex"}>
                                             <div>
                                                 <PersonIcon/>
@@ -413,7 +427,8 @@ export default function Authenticated({auth, header, children, flash, default_ta
                                         onClose={handleCloseUserMenu}
                                     >
                                         <div>
-                                            <Link href={route('auth.profile.show', {profile : auth.user.id})} className="w-full">
+                                            <Link href={route('auth.profile.show', {profile: auth.user.id})}
+                                                  className="w-full">
                                                 <MenuItem key={0} onClick={handleCloseUserMenu}>
                                                     <Typography
                                                         textAlign="center"><PersonIcon/>プロフィール</Typography>
@@ -435,7 +450,7 @@ export default function Authenticated({auth, header, children, flash, default_ta
                             </div>
                         </div>
                     </header>
-                    <div className="bg-gray-100" style={{
+                    <div className="bg-gray-100 pt-4" style={{
                         width: `calc(100vw - 80px)`,
                         minHeight: "100vh",
                         marginLeft: "80px",
@@ -448,7 +463,7 @@ export default function Authenticated({auth, header, children, flash, default_ta
 
             <Box style={{minHeight: "90vh"}} sx={{display: {xs: 'block', sm: 'none'}}}>
                 <div className="main bg-gray-100" style={{minHeight: '100vh'}}>
-                    <div className="pt-10 pb-16">
+                    <div className="pt-14 pb-16">
                         {children}
                     </div>
                 </div>
@@ -459,11 +474,15 @@ export default function Authenticated({auth, header, children, flash, default_ta
                             <Tab sx={{minWidth: '25%', width: '25%'}} icon={<HomeIcon/>} aria-label="home"
                                  onClick={handleClickTab}
                                  href={route('auth.home')} component='a'/>
-                            <Tab sx={{minWidth: '25%', width: '25%'}} icon={<SearchIcon/>} aria-label="phone"/>
+                            <Tab sx={{minWidth: '25%', width: '25%'}} icon={<SearchIcon/>} aria-label="search"
+                                 onClick={handleClickTab} href={route('auth.search.index')} component='a'/>
                             <Tab sx={{minWidth: '25%', width: '25%'}} icon={<MarkChatUnreadIcon/>}
-                                 aria-label="favorite"/>
+                                 onClick={handleClickTab} aria-label="notification"
+                                 href={route('auth.notification.index')}
+                                 component='a'/>
                             <Tab sx={{minWidth: '25%', width: '25%'}} icon={<PersonIcon/>} aria-label="person"
-                                 onClick={handleClickTab} href={route('auth.profile.show', {profile : auth.user.id})} component='a'/>
+                                 onClick={handleClickTab} href={route('auth.profile.show', {profile: auth.user.id})}
+                                 component='a'/>
                         </Tabs>
                     </Box>
                 </div>
