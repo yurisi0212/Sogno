@@ -13,8 +13,28 @@ use Inertia\Inertia;
 use Inertia\Response;
 
 class ProfileController extends Controller {
+
+
+    /**
+     * @param $id
+     * @return Response
+     */
+    public function show($id): Response {
+        return Inertia::render('Profile/Show',[
+            'mustVerifyEmail' => Auth::user() instanceof MustVerifyEmail,
+            'status' => session('status'),
+            'user' => User::query()
+                ->select('id', 'name')
+                ->with('profile')
+                ->findOrFail($id),
+        ]);
+    }
+
+
     /**
      * Display the user's profile form.
+     * @param Request $request
+     * @return Response
      */
     public function edit(Request $request): Response {
         return Inertia::render('Profile/Edit', [

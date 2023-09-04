@@ -18,5 +18,12 @@ class ProfileSeeder extends Seeder
                 'introduction' => 'test'
             ]
         );
+
+        Profile::create(
+            [
+                'user_id' => 2,
+                'introduction' => 'profile2'
+            ]
+        );
     }
 }

@@ -131,20 +131,22 @@ export default function Home(props: any) {
     const loadMore = async () => {
         if (loading) return;
         setLoading(true);
-        getContains();
+        setTimeout(function () {
+            getContains();
+        }, 300)
     }
 
     const getContains = (new_offset = offset, new_view_content = view_contents) => {
         axios.post(route('ajax.auth.get-dreams'), {
             offset: new_offset,
         }).then(function (response) {
-            if (response.data.length < 10) {
+            if (response.data.length < 20) {
                 setHasMore(false);
             }
             let content = [...new_view_content, ...response.data];
             // @ts-ignore
             setViewContents(content);
-            setOffset(new_offset + 10);
+            setOffset(new_offset + 20);
         }).catch(function (error) {
             console.log(error);
         }).finally(function () {

@@ -23,10 +23,10 @@ class DreamController extends Controller {
         $offset = $request->input("offset");
         $offset = $offset ?? 0;
         $dreams = Dream::query()
-            ->limit(10)
+            ->limit(20)
             ->offset($offset)
             ->orderByDesc('updated_at')
-            ->select("title", "content", "updated_at", 'id')
+            ->select("title", "content", "updated_at")
             ->get();
 
         return $dreams->toArray();

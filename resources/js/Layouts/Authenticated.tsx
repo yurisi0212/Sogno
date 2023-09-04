@@ -10,13 +10,14 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {Link} from "@inertiajs/inertia-react";
 import {Inertia} from "@inertiajs/inertia";
-import {Alert, Divider, Fab, Modal, Snackbar, Tab, Tabs, TextareaAutosize, TextField} from "@mui/material";
+import {Alert, Divider, Snackbar, Tab, Tabs} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import MarkChatUnreadIcon from '@mui/icons-material/MarkChatUnread';
 import HomeIcon from '@mui/icons-material/Home'
 import LogoutIcon from '@mui/icons-material/Logout';
 import AddIcon from "@mui/icons-material/Add";
+import MovingIcon from '@mui/icons-material/Moving';
 
 interface Props {
     auth: any;
@@ -210,7 +211,19 @@ export default function Authenticated({auth, header, children, flash, default_ta
                                 </Link>
                             </div>
                             <div className="my-5">
-                                <Link href={route('auth.profile.edit')}>
+                                <Link href=''>
+                                    <div className='flex'>
+                                        <div>
+                                            <MovingIcon/>
+                                        </div>
+                                        <div className="ms-1" style={{marginTop: "2px"}}>
+                                            貴方の夢
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+                            <div className="my-5">
+                                <Link href={route('auth.profile.show', {profile : auth.user.id})}>
                                     <div className={header == "profile" ? "flex text-gray-600" : "flex"}>
                                         <div>
                                             <PersonIcon/>
@@ -244,7 +257,7 @@ export default function Authenticated({auth, header, children, flash, default_ta
                                 <div>
                                     <Tooltip title="Open settings">
                                         <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                            <Avatar alt="yurisi" src="/static/images/avatar/2.jpg"/>
+                                            <Avatar alt={auth.user.name} src="/static/images/avatar/2.jpg"/>
                                         </IconButton>
                                     </Tooltip>
                                 </div>
@@ -269,7 +282,7 @@ export default function Authenticated({auth, header, children, flash, default_ta
                                 onClose={handleCloseUserMenu}
                             >
                                 <div>
-                                    <Link href={route('auth.profile.edit')} className="w-full">
+                                    <Link href={route('auth.profile.show', {profile : auth.user.id})} className="w-full">
                                         <MenuItem key={0} onClick={handleCloseUserMenu}>
                                             <Typography textAlign="center"><PersonIcon/>プロフィール</Typography>
                                         </MenuItem>
@@ -334,7 +347,16 @@ export default function Authenticated({auth, header, children, flash, default_ta
                                     </Link>
                                 </div>
                                 <div className="my-5">
-                                    <Link href={route('auth.profile.edit')}>
+                                    <Link href=''>
+                                        <div className='flex'>
+                                            <div>
+                                                <MovingIcon/>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </div>
+                                <div className="my-5">
+                                    <Link href={route('auth.profile.show', {profile : auth.user.id})}>
                                         <div className={header == "profile" ? "flex text-gray-600" : "flex"}>
                                             <div>
                                                 <PersonIcon/>
@@ -369,7 +391,7 @@ export default function Authenticated({auth, header, children, flash, default_ta
                                         <div>
                                             <Tooltip title="Open settings">
                                                 <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                                    <Avatar alt="yurisi" src="/static/images/avatar/2.jpg"/>
+                                                    <Avatar alt={auth.user.name} src="/static/images/avatar/2.jpg"/>
                                                 </IconButton>
                                             </Tooltip>
                                         </div>
@@ -391,7 +413,7 @@ export default function Authenticated({auth, header, children, flash, default_ta
                                         onClose={handleCloseUserMenu}
                                     >
                                         <div>
-                                            <Link href={route('auth.profile.edit')} className="w-full">
+                                            <Link href={route('auth.profile.show', {profile : auth.user.id})} className="w-full">
                                                 <MenuItem key={0} onClick={handleCloseUserMenu}>
                                                     <Typography
                                                         textAlign="center"><PersonIcon/>プロフィール</Typography>
@@ -425,9 +447,10 @@ export default function Authenticated({auth, header, children, flash, default_ta
             </Box>
 
             <Box style={{minHeight: "90vh"}} sx={{display: {xs: 'block', sm: 'none'}}}>
-                {/*Add Icon*/}
-                <div className="main bg-gray-100 mt-14 mb-16" style={{minHeight: '100vh'}}>
-                    {children}
+                <div className="main bg-gray-100" style={{minHeight: '100vh'}}>
+                    <div className="pt-10 pb-16">
+                        {children}
+                    </div>
                 </div>
                 <div className="w-full fixed bottom-0" style={{backgroundColor: "white"}}>
                     <Box sx={{width: '100%'}}>
@@ -440,7 +463,7 @@ export default function Authenticated({auth, header, children, flash, default_ta
                             <Tab sx={{minWidth: '25%', width: '25%'}} icon={<MarkChatUnreadIcon/>}
                                  aria-label="favorite"/>
                             <Tab sx={{minWidth: '25%', width: '25%'}} icon={<PersonIcon/>} aria-label="person"
-                                 onClick={handleClickTab} href={route('auth.profile.edit')} component='a'/>
+                                 onClick={handleClickTab} href={route('auth.profile.show', {profile : auth.user.id})} component='a'/>
                         </Tabs>
                     </Box>
                 </div>

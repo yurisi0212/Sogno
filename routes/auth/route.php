@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function(){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+    Route::resource('profile', ProfileController::class, [
+        "only" => ["index", "show", "update", "destroy"]
+    ]);
     Route::prefix('/profile')->name('profile.')->group(function(){
-        Route::get('/{id}', [ProfileController::class, 'show'])->name('show');
         Route::get('/', [ProfileController::class, 'edit'])->name('edit');
-        Route::patch('/{id}', [ProfileController::class, 'update'])->name('update');
-        Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
     });
 
     Route::resource('dream', DreamController::class, [
