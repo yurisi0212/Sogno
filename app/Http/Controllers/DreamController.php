@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\CantSaveDreamException;
 use App\Http\Requests\DreamStoreRequest;
-use App\Service\DreamService;
+use App\Services\DreamService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
