@@ -2,21 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\CantSaveDreamException;
 use App\Http\Requests\DreamStoreRequest;
-use App\Models\Dream;
+use App\Service\DreamService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class DreamController extends Controller {
 
+    public function __construct(private readonly DreamService $dreamService) {
+    }
+
     public function store(DreamStoreRequest $request): RedirectResponse {
         $validated = $request->validated();
-
-        $dream = new Dream();
-        $dream->fill($validated);
-        $dream->user_id = Auth::id();
-        $dream->save();
+        try {
+            $this->dreamService->addNewDream($validated);
+        } catch (CantSaveDreamException $e){
+            logs()->error($e);
+            return back()->with('message_success' , '夢の投稿に失敗しました');
+        }
 
         return back()->with('message_success' , '新しい夢を投稿しました');
     }
@@ -24,12 +28,7 @@ class DreamController extends Controller {
     public function ajaxGetDreams(Request $request): array {
         $offset = $request->input("offset");
         $offset = $offset ?? 0;
-        $dreams = Dream::query()
-            ->limit(20)
-            ->offset($offset)
-            ->orderByDesc('updated_at')
-            ->select("title", "content", "updated_at")
-            ->get();
+        $dreams = $this->dreamService->getDreams($offset);
 
         return $dreams->toArray();
     }

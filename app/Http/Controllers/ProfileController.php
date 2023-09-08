@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\CantSaveProfileException;
+use App\Exceptions\CantSaveUserException;
 use App\Http\Requests\ProfileUpdateRequest;
-use App\Models\User;
+use App\Service\ProfileService;
+use App\Service\UserService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,19 +17,22 @@ use Inertia\Response;
 
 class ProfileController extends Controller {
 
+    public function __construct(
+        private readonly UserService    $userService,
+        private readonly ProfileService $profileService
+    ) {
+    }
+
 
     /**
      * @param $id
      * @return Response
      */
     public function show($id): Response {
-        return Inertia::render('Profile/Show',[
+        return Inertia::render('Profile/Show', [
             'mustVerifyEmail' => Auth::user() instanceof MustVerifyEmail,
             'status' => session('status'),
-            'user' => User::query()
-                ->select('id', 'name')
-                ->with('profile')
-                ->findOrFail($id),
+            'user' => $this->userService->getUserWithProfile($id),
         ]);
     }
 
@@ -40,7 +46,7 @@ class ProfileController extends Controller {
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
-            'user' => User::query()->with('profile')->where('id', Auth::id())->first(),
+            'user' => $this->userService->getUserWithProfile(Auth::id()),
         ]);
     }
 
@@ -48,17 +54,16 @@ class ProfileController extends Controller {
      * Update the user's profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse {
-        $request->user()->fill($request->validated());
-        $request->user()->profile->fill($request->validated());
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
-        if(!$request->user()->save()){
-            return Redirect::route('auth.profile.edit')->with('message_error', '名前の更新に失敗しました。');
-        }
-
-        if(!$request->user()->profile->save()){
+        $validated = $request->validated();
+        $id = Auth::id();
+        try {
+            $this->userService->saveUser($id, $validated);
+            $this->profileService->saveProfile($id, $validated);
+        } catch (CantSaveUserException $e) {
+            logs()->error($e);
+            return Redirect::route('auth.profile.edit')->with('message_error', 'ユーザー情報の更新に失敗しました。');
+        } catch (CantSaveProfileException $e) {
+            logs()->error($e);
             return Redirect::route('auth.profile.edit')->with('message_error', 'プロフィールの更新に失敗しました。');
         }
 
@@ -73,11 +78,11 @@ class ProfileController extends Controller {
             'password' => ['required', 'current_password'],
         ]);
 
-        $user = $request->user();
+        $user = Auth::user();
 
         Auth::logout();
 
-        $user->delete();
+        $this->userService->deleteUser($user);
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
