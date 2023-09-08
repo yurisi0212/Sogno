@@ -3,30 +3,22 @@
 namespace App\Services;
 
 use App\Exceptions\CantSaveDreamException;
-use App\Models\Dream;
+use App\Repositories\DreamRepository;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Auth;
 
 class DreamService {
+
+    public function __construct(private readonly DreamRepository $dreamRepository) {
+    }
 
     /**
      * @throws CantSaveDreamException
      */
-    public function addNewDream($validated): void {
-        $dream = new Dream();
-        $dream->fill($validated);
-        $dream->user_id = Auth::id();
-        if (!$dream->save()) {
-            throw new CantSaveDreamException("保存に失敗しました。");
-        }
+    public function store($id, $validated): void {
+        $this->dreamRepository->store($id, $validated);
     }
 
     public function getDreams($offset, $limit = 20): Collection|array {
-        return Dream::query()
-            ->limit($limit)
-            ->offset($offset)
-            ->orderByDesc('updated_at')
-            ->select("title", "content", "updated_at")
-            ->get();
+        return $this->dreamRepository->getDreamsOfSpecifiedLimit($offset, $limit);
     }
 }

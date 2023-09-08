@@ -57,8 +57,8 @@ class ProfileController extends Controller {
         $validated = $request->validated();
         $id = Auth::id();
         try {
-            $this->userService->saveUser($id, $validated);
-            $this->profileService->saveProfile($id, $validated);
+            $this->userService->update($id, $validated);
+            $this->profileService->update($id, $validated);
         } catch (CantSaveUserException $e) {
             logs()->error($e);
             return Redirect::route('auth.profile.edit')->with('message_error', 'ユーザー情報の更新に失敗しました。');
@@ -78,11 +78,11 @@ class ProfileController extends Controller {
             'password' => ['required', 'current_password'],
         ]);
 
-        $user = Auth::user();
+        $id = Auth::id();
 
         Auth::logout();
 
-        $this->userService->deleteUser($user);
+        $this->userService->deleteUser($id);
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
