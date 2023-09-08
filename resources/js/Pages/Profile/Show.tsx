@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Box from "@mui/material/Box";
 import {Link} from "@inertiajs/inertia-react";
+import Container from "@mui/material/Container";
 
 export default function Show(props: any) {
 
@@ -17,6 +18,7 @@ export default function Show(props: any) {
         <>
             <Authenticated auth={props.auth} header="profile" flash={props.flash}>
                 <Box sx={{display: {xs: "none", sm: "block"}}}>
+                    <Container>
                     <div className="mx-6 mt-4 mb-10 text-center">
                         <Card sx={{minHeight: "90vh", display: {xs: "none", sm: "block"}}}>
                             <div className="mt-8">
@@ -93,6 +95,7 @@ export default function Show(props: any) {
                             </div>
                         </Card>
                     </div>
+                    </Container>
                 </Box>
 
                 <Box sx={{display: {xs: "block", sm: "none"}}}>

@@ -12,6 +12,7 @@ import {Inertia} from "@inertiajs/inertia";
 import {yupResolver} from "@hookform/resolvers/yup";
 import AddIcon from "@mui/icons-material/Add";
 import * as yup from "yup";
+import Container from "@mui/material/Container";
 
 interface DreamData {
     id: number;
@@ -206,9 +207,9 @@ export default function Home(props: any) {
                                 hasMore={hasMore}
                                 loader={loader}
                             >
-                                <div>
+                                <Container>
                                     {item}
-                                </div>
+                                </Container>
                             </InfiniteScroll>
                         );
                     }

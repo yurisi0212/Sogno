@@ -10,13 +10,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function(){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+
+    Route::prefix('/profile')->name('profile.')->group(function(){
+        Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');
+    });
+
     Route::resource('profile', ProfileController::class, [
         "only" => ["index", "show", "update", "destroy"]
     ]);
-
-    Route::prefix('/profile')->name('profile.')->group(function(){
-        Route::get('/', [ProfileController::class, 'edit'])->name('edit');
-    });
 
     Route::resource('notification', NotificationController::class, [
         "only" => ["index"]

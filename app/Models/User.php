@@ -44,6 +44,22 @@ class User extends Authenticatable {
         'password' => 'hashed',
     ];
 
+    public static function boot() {
+        parent::boot();
+        self::created(function (User $user){
+            $user->createProfile();
+        });
+    }
+
+    private function createProfile(): void {
+        $profile = new Profile();
+        $profile->user_id = $this->id;
+
+        if(!$profile->save()){
+            abort(500, "プロフィールの作成に失敗しました。");
+        }
+    }
+
     public function profile(): HasOne {
         return $this->hasOne(Profile::class, "user_id");
     }

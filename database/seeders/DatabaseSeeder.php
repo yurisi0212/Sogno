@@ -12,7 +12,6 @@ class DatabaseSeeder extends Seeder {
     public function run(): void {
        if(config('app.env') == "local"){
            $this->call(UserSeeder::class);
-           $this->call(ProfileSeeder::class);
        }
     }
 }

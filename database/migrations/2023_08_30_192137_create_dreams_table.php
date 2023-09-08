@@ -11,11 +11,14 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('dreams', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->unique();
             $table->string('title')->nullable();
             $table->text('content');
             $table->unsignedBigInteger('reply_dream_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

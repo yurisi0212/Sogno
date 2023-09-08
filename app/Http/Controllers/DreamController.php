@@ -6,6 +6,7 @@ use App\Http\Requests\DreamStoreRequest;
 use App\Models\Dream;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DreamController extends Controller {
 
@@ -14,6 +15,7 @@ class DreamController extends Controller {
 
         $dream = new Dream();
         $dream->fill($validated);
+        $dream->user_id = Auth::id();
         $dream->save();
 
         return back()->with('message_success' , '新しい夢を投稿しました');

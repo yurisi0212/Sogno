@@ -54,8 +54,13 @@ class ProfileController extends Controller {
             $request->user()->email_verified_at = null;
         }
 
-        $request->user()->save();
-        $request->user()->profile->save();
+        if(!$request->user()->save()){
+            return Redirect::route('auth.profile.edit')->with('message_error', '名前の更新に失敗しました。');
+        }
+
+        if(!$request->user()->profile->save()){
+            return Redirect::route('auth.profile.edit')->with('message_error', 'プロフィールの更新に失敗しました。');
+        }
 
         return Redirect::route('auth.profile.edit')->with('message_success', 'プロフィールを変更しました。');
     }
