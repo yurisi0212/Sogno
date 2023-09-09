@@ -42,7 +42,7 @@ class UserRepository implements UserRepositoryInterface {
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
         }
-        if (!$user->save()) {
+        if (!$user->update()) {
             throw new CantSaveUserException("ユーザーの保存に失敗しました。");
         }
     }

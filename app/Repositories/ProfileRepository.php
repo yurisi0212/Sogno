@@ -27,7 +27,7 @@ class ProfileRepository implements ProfileRepositoryInterface {
     public function update($user_id, $validated): void {
         $profile = $this->getProfileFromUser($user_id);
         $profile->fill($validated);
-        if (!$profile->save()) {
+        if (!$profile->update()) {
             throw new CantSaveProfileException("プロフィールの保存に失敗しました。");
         }
     }
