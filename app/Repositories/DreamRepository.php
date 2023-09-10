@@ -31,6 +31,7 @@ class DreamRepository implements DreamRepositoryInterface {
      */
     public function getDreamsOfSpecifiedLimit($offset, $limit = 20): Collection|array {
         return Dream::query()
+            ->with('user')
             ->limit($limit)
             ->offset($offset)
             ->orderByDesc('updated_at')

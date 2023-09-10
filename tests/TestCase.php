@@ -10,6 +10,4 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
     use RefreshDatabase;
-
-    protected string $seeder = UserSeeder::class;
 }

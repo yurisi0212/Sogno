@@ -1,16 +1,21 @@
 <?php
 
-namespace Tests\Unit\Service;
+namespace Feature\Service;
 
 use App\Models\User;
 use App\Services\UserService;
-use DateTime;
+use Carbon\Carbon;
+use Database\Seeders\UserSeeder;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class UserServiceTest extends TestCase {
 
+    use DatabaseMigrations;
+
     protected function setUp(): void {
         parent::setUp();
+        $this->seed(UserSeeder::class);
         $this->userService = app(UserService::class);
     }
 
@@ -26,14 +31,20 @@ class UserServiceTest extends TestCase {
     }
 
     public function test_update() {
+        Carbon::setTestNow();
         $validated = ["name" => "testName", "introduction" => "testIntroduction"];
-        $before = User::find(1);
+        $before = User::query()->with('profile')->find(1);
         $this->userService->update(1, $validated);
-        $after = User::find(1);
-        $updated_at = (new DateTime())->format("Y-m-d H:i:s");
-        $after_updated_at = (new DateTime($after->updated_at))->format("Y-m-d H:i:s");
+        $after = User::query()->with('profile')->find(1);
+        $updated_at = (new Carbon())->toDateTimeString();
+        $after_updated_at = (new Carbon($after->updated_at))->toDateTimeString();
 
-        $this->assertTrue(($before->name !== $after->name) && ($after_updated_at === $updated_at));
+        $this->assertNotSame($before->name, $after->name);
+        $this->assertSame($before->profile->introduction, $after->profile->introduction);
+        $this->assertSame($after_updated_at , $updated_at);
+
+        $this->assertSame("testName", $after->name);
+        $this->assertNotSame("testIntroduction", $after->profile->introduction);
     }
 
     public function test_deleteUser() {

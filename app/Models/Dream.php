@@ -20,4 +20,8 @@ class Dream extends Model {
     public function parent_reply(): BelongsTo {
         return $this->belongsTo(self::class, 'id', 'reply_dream_id');
     }
+
+    public function user(): BelongsTo{
+        return $this->belongsTo(self::class, 'id', 'user_id');
+    }
 }
