@@ -4,12 +4,9 @@ namespace Tests\Feature\Service;
 
 use App\Models\Dream;
 use App\Services\DreamService;
-use App\Services\ProfileService;
-use Database\Seeders\DatabaseSeeder;
 use Database\Seeders\DreamSeeder;
 use Database\Seeders\UserSeeder;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class DreamServiceTest extends TestCase {

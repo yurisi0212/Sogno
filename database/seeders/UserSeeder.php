@@ -14,6 +14,7 @@ class UserSeeder extends Seeder {
         $init_date = "2000-01-01 00:00:00";
         User::create(
             [
+                'id' => 1,
                 'name' => 'yurisi',
                 'email' => 'yurisi@example.com',
                 'password' => bcrypt('yurisi'),
@@ -24,6 +25,7 @@ class UserSeeder extends Seeder {
 
         User::create(
             [
+                'id' => 2,
                 'name' => 'user2',
                 'email' => 'user2@example.com',
                 'password' => bcrypt('user2'),

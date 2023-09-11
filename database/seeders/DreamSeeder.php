@@ -10,8 +10,8 @@ class DreamSeeder extends Seeder {
      * Run the database seeds.
      */
     public function run(): void {
+        $init_date = "2000-01-01 00:00:00";
         for ($i = 0; $i < 100; $i++) {
-            $init_date = "2000-01-01 00:00:00";
             Dream::create(
                 [
                     'title' => 'title'.$i,
