@@ -49,6 +49,9 @@ class User extends Authenticatable {
         self::created(function (User $user){
             $user->createProfile();
         });
+        self::deleted(function(User $user){
+            //TODO delete dreams, searchHistories
+        });
     }
 
     private function createProfile(): void {

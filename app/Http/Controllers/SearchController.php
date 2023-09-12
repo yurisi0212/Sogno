@@ -16,9 +16,10 @@ class SearchController extends Controller {
 
     public function index(Request $request): Response {
         $keyword = $request->input("q") ?? '';
-        $latest = $this->searchService->getSearchHistories(Auth::id());
+        $user_id = Auth::id();
+        $latest = $this->searchService->getSearchHistories($user_id);
         if (isset($keyword)) {
-
+            $this->searchService->registerSearchHistory($user_id, $keyword);
         }
         return Inertia::render('Search/Index', [
             "keyword" => $keyword,

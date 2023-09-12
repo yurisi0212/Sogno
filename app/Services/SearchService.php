@@ -20,6 +20,10 @@ class SearchService{
     }
 
     public function getSearchResult($user_id, $keyword){
+
+    }
+
+    public function registerSearchHistory($user_id, $keyword){
         $this->historyRepository->store($user_id, $keyword);
     }
 }

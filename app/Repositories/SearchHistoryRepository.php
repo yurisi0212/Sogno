@@ -23,4 +23,9 @@ class SearchHistoryRepository implements SearchHistoryRepositoryInterface {
         $history->text = $keyword;
         $history->save();
     }
+
+    public function search($keyword){
+        $keyword = extractKeywords($keyword);
+        $result = [];
+    }
 }
